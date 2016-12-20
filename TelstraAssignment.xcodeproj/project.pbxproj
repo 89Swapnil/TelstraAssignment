@@ -18,6 +18,8 @@
 		B78D2C851E092A8800694BEE /* Default3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B78D2C7E1E092A8800694BEE /* Default3x.png */; };
 		B78D2C861E092A8800694BEE /* Default568h3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B78D2C7F1E092A8800694BEE /* Default568h3x.png */; };
 		B78D2C871E092A8800694BEE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B78D2C801E092A8800694BEE /* Default@2x.png */; };
+		B78D2C901E092C9D00694BEE /* ConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B78D2C8F1E092C9D00694BEE /* ConnectionHandler.m */; };
+		B78D2C941E092D0300694BEE /* DetailsService.m in Sources */ = {isa = PBXBuildFile; fileRef = B78D2C931E092D0300694BEE /* DetailsService.m */; };
 		C347EB241E08FF16009374E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C347EB231E08FF16009374E0 /* main.m */; };
 		C347EB271E08FF16009374E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C347EB261E08FF16009374E0 /* AppDelegate.m */; };
 		C347EB2F1E08FF17009374E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C347EB2E1E08FF17009374E0 /* Assets.xcassets */; };
@@ -39,6 +41,11 @@
 		B78D2C7E1E092A8800694BEE /* Default3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default3x.png; sourceTree = "<group>"; };
 		B78D2C7F1E092A8800694BEE /* Default568h3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default568h3x.png; sourceTree = "<group>"; };
 		B78D2C801E092A8800694BEE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		B78D2C8E1E092C9D00694BEE /* ConnectionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectionHandler.h; sourceTree = "<group>"; };
+		B78D2C8F1E092C9D00694BEE /* ConnectionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectionHandler.m; sourceTree = "<group>"; };
+		B78D2C921E092D0300694BEE /* DetailsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsService.h; sourceTree = "<group>"; };
+		B78D2C931E092D0300694BEE /* DetailsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsService.m; sourceTree = "<group>"; };
+		B78D2C951E092D3000694BEE /* ServiceLayerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLayerProtocol.h; sourceTree = "<group>"; };
 		C347EB1F1E08FF16009374E0 /* TelstraAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TelstraAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C347EB231E08FF16009374E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C347EB251E08FF16009374E0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -99,6 +106,25 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		B78D2C8D1E092C9300694BEE /* ConnectionHandler */ = {
+			isa = PBXGroup;
+			children = (
+				B78D2C8E1E092C9D00694BEE /* ConnectionHandler.h */,
+				B78D2C8F1E092C9D00694BEE /* ConnectionHandler.m */,
+				B78D2C951E092D3000694BEE /* ServiceLayerProtocol.h */,
+			);
+			path = ConnectionHandler;
+			sourceTree = "<group>";
+		};
+		B78D2C911E092CF800694BEE /* ServiceLayers */ = {
+			isa = PBXGroup;
+			children = (
+				B78D2C921E092D0300694BEE /* DetailsService.h */,
+				B78D2C931E092D0300694BEE /* DetailsService.m */,
+			);
+			path = ServiceLayers;
+			sourceTree = "<group>";
+		};
 		C347EB161E08FF16009374E0 = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				B78D2C6D1E092A3E00694BEE /* Models */,
+				B78D2C8D1E092C9300694BEE /* ConnectionHandler */,
+				B78D2C911E092CF800694BEE /* ServiceLayers */,
 				B78D2C701E092A3E00694BEE /* TableCustomCells */,
 				B78D2C731E092A3E00694BEE /* ViewControllers */,
 				B78D2C601E09122700694BEE /* Constant.h */,
@@ -219,8 +247,10 @@
 			files = (
 				B78D2C781E092A3E00694BEE /* DetailViewController.m in Sources */,
 				B78D2C761E092A3E00694BEE /* TableInfo.m in Sources */,
+				B78D2C941E092D0300694BEE /* DetailsService.m in Sources */,
 				C347EB271E08FF16009374E0 /* AppDelegate.m in Sources */,
 				B78D2C771E092A3E00694BEE /* InfoCustomCell.m in Sources */,
+				B78D2C901E092C9D00694BEE /* ConnectionHandler.m in Sources */,
 				C347EB241E08FF16009374E0 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,6 +350,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TelstraAssignment/Info.plist;
@@ -334,6 +365,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TelstraAssignment/Info.plist;

@@ -99,20 +99,34 @@ NSOperationQueue *queue;
     
 }
 
--(void)setThumbnailImageWithData:(NSData*)aImageData {
+-(void)setThumbnailUrlString:(NSString *)urlString {
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        NSString *tStrThumbnails = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"Thumbnails"];
+        NSURL *tImageFileURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@.jpg", tStrThumbnails, _title.text] isDirectory:NO];
+        NSData  *tImageData = [NSData dataWithContentsOfURL:tImageFileURL];
+        
+        if(tImageData) {
+            [self setImageData:tImageData];
+        } else {
+            [self setThumbnailImageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:urlString]]];
+        }
+    });
+    
+}
+
+-(void)setThumbnailImageWithData:(NSData *)aImageData {
     
     NSError *tError = nil;
     NSString *tStrThumbnails = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"Thumbnails"];
     
     if(tError != nil) {
-        NSLog(@"ImageDownloadService : HTMLParser : %@ : Error : %zd : %@ : %@", tStrThumbnails, tError.code, tError.domain, tError.localizedDescription);
         return;
     }
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:tStrThumbnails]) {
         
         if(![[NSFileManager defaultManager] createDirectoryAtPath:tStrThumbnails withIntermediateDirectories:YES attributes:nil error:&tError]) {
-            NSLog(@"ImageDownloadService : saveContactImage : %@ : Error : %zd : %@ : %@", tStrThumbnails, tError.code, tError.domain, tError.localizedDescription);
             return;
         }
     }
@@ -124,7 +138,6 @@ NSOperationQueue *queue;
                          error:&tError];
         
         if(tError != nil) {
-            NSLog(@"ImageDownloadService : saveContactImage : %@ : Error : %zd : %@ : %@", tStrThumbnails, tError.code, tError.domain, tError.localizedDescription);
             return;
         }
         

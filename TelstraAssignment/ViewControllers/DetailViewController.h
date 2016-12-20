@@ -10,10 +10,12 @@
 #import "InfoCustomCell.h"
 #import "TableInfo.h"
 #import "Constant.h"
+#import "ConnectionHandler.h"
 
 @interface DetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 {
     UITableView *infoTable;
+    ConnectionHandler *connectionHandler;
 
 }
 @end

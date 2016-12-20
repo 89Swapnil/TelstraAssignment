@@ -20,20 +20,39 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [self setUI];
+    
+    DetailsService *detailService = [DetailsService new];
+    [detailService fetch:nil];
+    [detailService setDelegate:self];
+
 }
 
+- (void)detailResultHandler:(NSArray *)detailInfo :(NSString *)titleHeader
+{
+    _titleHeader = titleHeader;
+    _detailArray = detailInfo;
+    dispatch_async(dispatch_get_main_queue(),^{
+        [self setUI];
+    });
+}
+
+- (void)onError:(NSError *)error
+{
+    UIAlertView *statusUpdatedAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Error Occured" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [statusUpdatedAlert show];
+    statusUpdatedAlert = nil;
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)setUI
 {
     UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, NavigationBar_Height)];
     UINavigationItem *navItem = [UINavigationItem alloc];
-    navItem.title = @"Test";
+    navItem.title = _titleHeader;
     [navbar pushNavigationItem:navItem animated:false];
     [self.view addSubview:navbar];
     
