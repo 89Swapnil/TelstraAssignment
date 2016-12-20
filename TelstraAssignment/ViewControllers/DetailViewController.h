@@ -11,12 +11,14 @@
 #import "TableInfo.h"
 #import "Constant.h"
 #import "ConnectionHandler.h"
+#import "Utility.h"
 
-@interface DetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface DetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, DetailServiceProtocol>
 {
     UITableView *infoTable;
     ConnectionHandler *connectionHandler;
-
+    UIRefreshControl *refreshControl;
+    UIActivityIndicatorView *loadingIndicator;
 }
 @end
 

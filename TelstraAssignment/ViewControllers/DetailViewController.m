@@ -19,16 +19,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     
-    DetailsService *detailService = [DetailsService new];
-    [detailService fetch:nil];
-    [detailService setDelegate:self];
+    if (![Utility connectedToNetwork])
+    {
+        UIAlertView *statusUpdatedAlert = [[UIAlertView alloc] initWithTitle:@"No Network Connection" message:@"No network connection. Please try connecting to the Internet." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [statusUpdatedAlert show];
+        statusUpdatedAlert = nil;
+    }
+    else {
+        loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        loadingIndicator.center = self.view.center;
+        
+        [self.view addSubview:loadingIndicator];
+        [loadingIndicator startAnimating];
+        
+        DetailsService *detailService = [DetailsService new];
+        [detailService fetch:nil];
+        [detailService setDelegate:self];
+    }
 
 }
 
 - (void)detailResultHandler:(NSArray *)detailInfo :(NSString *)titleHeader
 {
+    [loadingIndicator stopAnimating];
     _titleHeader = titleHeader;
     _detailArray = detailInfo;
     dispatch_async(dispatch_get_main_queue(),^{
@@ -62,7 +76,35 @@
     [infoTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     [self.view addSubview:infoTable];
+    
+    UIView *refreshView = [[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_Height, 0, 0)];
+    [infoTable insertSubview:refreshView atIndex:0];
+    
+    refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.tintColor = [UIColor redColor];
+    [refreshControl addTarget:self action:@selector(reloadData) forControlEvents:UIControlEventValueChanged];
+    NSMutableAttributedString *refreshString = [[NSMutableAttributedString alloc] initWithString:@"Refresh"];
+    [refreshString addAttributes:@{NSForegroundColorAttributeName : [UIColor grayColor]} range:NSMakeRange(0, refreshString.length)];
+    refreshControl.attributedTitle = refreshString;
+    [refreshView addSubview:refreshControl];
 
+}
+
+-(void)reloadData
+{
+    if (![Utility connectedToNetwork])
+    {
+        UIAlertView *statusUpdatedAlert = [[UIAlertView alloc] initWithTitle:@"No Network Connection" message:@"No network connection. Please try connecting to the Internet." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [statusUpdatedAlert show];
+        statusUpdatedAlert = nil;
+    }
+    else
+    {
+        DetailsService *detailService = [DetailsService new];
+        [detailService fetch:nil];
+        [detailService setDelegate:self];
+        [refreshControl endRefreshing];
+    }
 }
 
 #pragma mark - Table view data source

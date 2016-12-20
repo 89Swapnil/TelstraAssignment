@@ -115,7 +115,7 @@ NSOperationQueue *queue;
     
 }
 
--(void)setThumbnailImageWithData:(NSData *)aImageData {
+-(void)setThumbnailImageWithData:(NSData*)aImageData {
     
     NSError *tError = nil;
     NSString *tStrThumbnails = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"Thumbnails"];

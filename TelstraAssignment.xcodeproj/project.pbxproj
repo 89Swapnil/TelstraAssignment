@@ -20,6 +20,8 @@
 		B78D2C871E092A8800694BEE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B78D2C801E092A8800694BEE /* Default@2x.png */; };
 		B78D2C901E092C9D00694BEE /* ConnectionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B78D2C8F1E092C9D00694BEE /* ConnectionHandler.m */; };
 		B78D2C941E092D0300694BEE /* DetailsService.m in Sources */ = {isa = PBXBuildFile; fileRef = B78D2C931E092D0300694BEE /* DetailsService.m */; };
+		B78D2C991E0946AD00694BEE /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = B78D2C981E0946AD00694BEE /* Utility.m */; };
+		B78D2C9C1E0946C900694BEE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B78D2C9B1E0946C900694BEE /* SystemConfiguration.framework */; };
 		C347EB241E08FF16009374E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C347EB231E08FF16009374E0 /* main.m */; };
 		C347EB271E08FF16009374E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C347EB261E08FF16009374E0 /* AppDelegate.m */; };
 		C347EB2F1E08FF17009374E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C347EB2E1E08FF17009374E0 /* Assets.xcassets */; };
@@ -46,6 +48,9 @@
 		B78D2C921E092D0300694BEE /* DetailsService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsService.h; sourceTree = "<group>"; };
 		B78D2C931E092D0300694BEE /* DetailsService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsService.m; sourceTree = "<group>"; };
 		B78D2C951E092D3000694BEE /* ServiceLayerProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceLayerProtocol.h; sourceTree = "<group>"; };
+		B78D2C971E0946AD00694BEE /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
+		B78D2C981E0946AD00694BEE /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
+		B78D2C9B1E0946C900694BEE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C347EB1F1E08FF16009374E0 /* TelstraAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TelstraAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C347EB231E08FF16009374E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C347EB251E08FF16009374E0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -59,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B78D2C9C1E0946C900694BEE /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,11 +131,29 @@
 			path = ServiceLayers;
 			sourceTree = "<group>";
 		};
+		B78D2C961E09469800694BEE /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B78D2C971E0946AD00694BEE /* Utility.h */,
+				B78D2C981E0946AD00694BEE /* Utility.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		B78D2C9A1E0946C900694BEE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B78D2C9B1E0946C900694BEE /* SystemConfiguration.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C347EB161E08FF16009374E0 = {
 			isa = PBXGroup;
 			children = (
 				C347EB211E08FF16009374E0 /* TelstraAssignment */,
 				C347EB201E08FF16009374E0 /* Products */,
+				B78D2C9A1E0946C900694BEE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -149,9 +173,10 @@
 				B78D2C911E092CF800694BEE /* ServiceLayers */,
 				B78D2C701E092A3E00694BEE /* TableCustomCells */,
 				B78D2C731E092A3E00694BEE /* ViewControllers */,
-				B78D2C601E09122700694BEE /* Constant.h */,
+				B78D2C961E09469800694BEE /* Utilities */,
 				C347EB251E08FF16009374E0 /* AppDelegate.h */,
 				C347EB261E08FF16009374E0 /* AppDelegate.m */,
+				B78D2C601E09122700694BEE /* Constant.h */,
 				C347EB2E1E08FF17009374E0 /* Assets.xcassets */,
 				C347EB331E08FF17009374E0 /* Info.plist */,
 				B78D2C5A1E090FBD00694BEE /* defaultImages.png */,
@@ -245,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B78D2C991E0946AD00694BEE /* Utility.m in Sources */,
 				B78D2C781E092A3E00694BEE /* DetailViewController.m in Sources */,
 				B78D2C761E092A3E00694BEE /* TableInfo.m in Sources */,
 				B78D2C941E092D0300694BEE /* DetailsService.m in Sources */,
@@ -358,6 +384,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Telstra.TelstraAssignment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -373,6 +401,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Telstra.TelstraAssignment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

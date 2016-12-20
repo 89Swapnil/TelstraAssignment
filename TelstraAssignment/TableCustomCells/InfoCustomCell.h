@@ -10,7 +10,10 @@
 #import "Constant.h"
 
 @interface InfoCustomCell : UITableViewCell
+{
+    NSCache *_imageCache;
 
+}
 @property(nonatomic, retain) UILabel *title;
 @property(nonatomic, retain) UILabel *descriptionDetail;
 @property(nonatomic, retain) UIImageView *thumbNailImage;
