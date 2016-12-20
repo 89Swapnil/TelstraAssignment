@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "InfoCustomCell.h"
+#import "TableInfo.h"
+#import "Constant.h"
 
 @interface DetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 {

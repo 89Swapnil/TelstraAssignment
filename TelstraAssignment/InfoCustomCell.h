@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constant.h"
 
 @interface InfoCustomCell : UITableViewCell
 
@@ -15,5 +16,7 @@
 @property(nonatomic, retain) UIImageView *thumbNailImage;
 @property(nonatomic, strong) NSString *thumbnailUrlString;
 @property(nonatomic, strong) UIActivityIndicatorView *spinner;
+
+-(void)setThumbnailUrlString:(NSString *)urlString;
 
 @end

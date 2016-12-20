@@ -35,7 +35,7 @@ NSOperationQueue *queue;
         [self.title setNumberOfLines:0];
         [self.title setTextColor:[UIColor blackColor]];
         [self.title setBackgroundColor:[UIColor clearColor]];
-        //[self.title setFont:TitleFont];
+        [self.title setFont:TitleFont];
         [self.title setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self.contentView addSubview:self.title];
         
@@ -43,7 +43,7 @@ NSOperationQueue *queue;
         [self.descriptionDetail setNumberOfLines:0];
         [self.descriptionDetail setTextColor:[UIColor blackColor]];
         [self.descriptionDetail setBackgroundColor:[UIColor clearColor]];
-        //[self.descriptionDetail setFont:DescriptionFont];
+        [self.descriptionDetail setFont:DescriptionFont];
         [self.descriptionDetail setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self.contentView addSubview:self.descriptionDetail];
         
@@ -54,7 +54,6 @@ NSOperationQueue *queue;
         
         self.spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         [self.thumbNailImage addSubview:self.spinner];
-        //[self.spinner startAnimating];
         [self.contentView layoutSubviews];
         
         [self updateCellConstraints];
@@ -100,4 +99,48 @@ NSOperationQueue *queue;
     
 }
 
+-(void)setThumbnailImageWithData:(NSData*)aImageData {
+    
+    NSError *tError = nil;
+    NSString *tStrThumbnails = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"Thumbnails"];
+    
+    if(tError != nil) {
+        NSLog(@"ImageDownloadService : HTMLParser : %@ : Error : %zd : %@ : %@", tStrThumbnails, tError.code, tError.domain, tError.localizedDescription);
+        return;
+    }
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:tStrThumbnails]) {
+        
+        if(![[NSFileManager defaultManager] createDirectoryAtPath:tStrThumbnails withIntermediateDirectories:YES attributes:nil error:&tError]) {
+            NSLog(@"ImageDownloadService : saveContactImage : %@ : Error : %zd : %@ : %@", tStrThumbnails, tError.code, tError.domain, tError.localizedDescription);
+            return;
+        }
+    }
+    
+    if(tError == nil) {
+        NSURL *tImageFileURL = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@.png", tStrThumbnails, _title.text] isDirectory:NO];
+        [aImageData writeToURL:tImageFileURL
+                       options:NSDataWritingFileProtectionComplete
+                         error:&tError];
+        
+        if(tError != nil) {
+            NSLog(@"ImageDownloadService : saveContactImage : %@ : Error : %zd : %@ : %@", tStrThumbnails, tError.code, tError.domain, tError.localizedDescription);
+            return;
+        }
+        
+        [self setImageData:aImageData];
+    }
+    
+}
+
+-(void)setImageData:(NSData *)aData {
+    dispatch_async(dispatch_get_main_queue(),^{
+        if (aData) {
+            _thumbNailImage.image = [[UIImage alloc] initWithData:aData];
+            [self.spinner stopAnimating];
+        } else {
+            _thumbNailImage.image = [UIImage imageNamed:@"defaultImages"];
+        }
+    });
+}
 @end

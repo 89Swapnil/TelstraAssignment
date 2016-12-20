@@ -8,9 +8,10 @@
 
 #import "DetailViewController.h"
 
-#define NavigationBar_Height 50
-
 @interface DetailViewController ()
+
+@property(nonatomic, strong)NSArray *detailArray;
+@property(nonatomic, strong)NSString *titleHeader;
 
 @end
 
@@ -36,13 +37,13 @@
     [navbar pushNavigationItem:navItem animated:false];
     [self.view addSubview:navbar];
     
-    infoTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_Height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 50)];
+    infoTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_Height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - NavigationBar_Height)];
     infoTable.delegate =self;
     infoTable.dataSource = self;
     [infoTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     [self.view addSubview:infoTable];
-    
+
 }
 
 #pragma mark - Table view data source
@@ -52,7 +53,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return _detailArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -70,16 +71,40 @@
     separatorLineView.backgroundColor = [UIColor grayColor];
     [cell.contentView addSubview:separatorLineView];
     
+    TableInfo *dataObject = [_detailArray objectAtIndex:indexPath.row];
+    
+    NSString *urlString = [[NSString alloc]initWithFormat:@"%@",dataObject.imgUrl];
+    NSString *title = [[NSString alloc]initWithFormat:@"%@",dataObject.title];
+    NSString *description = [[NSString alloc]initWithFormat:@"%@",dataObject.descriptionDetail];
+    
     cell.thumbNailImage.image = [UIImage imageNamed:@"defaultImages"];
-    cell.title.text = @"AS";
-    cell.descriptionDetail.text = @"ASA";
+    [cell.spinner startAnimating];
+    [cell setThumbnailUrlString:urlString];
+    cell.title.text = title;
+    cell.descriptionDetail.text = description;
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 100;
+    CGSize constraint = CGSizeMake([UIScreen mainScreen].bounds.size.width - 70, CGFLOAT_MAX);
+    CGSize size;
+    
+    TableInfo *dataObject = [_detailArray objectAtIndex:indexPath.row];
+    NSString *description = [[NSString alloc]initWithFormat:@"%@",dataObject.descriptionDetail];
+    
+    NSStringDrawingContext *context = [[NSStringDrawingContext alloc] init];
+    CGSize boundingBox = [description boundingRectWithSize:constraint
+                                                   options:NSStringDrawingUsesLineFragmentOrigin
+                                                attributes:@{NSFontAttributeName:DescriptionFont}
+                                                   context:context].size;
+    
+    size = CGSizeMake((boundingBox.width), (boundingBox.height));
+    if(size.height > MaxHeight)
+        return size.height + CellPadding;
+    else
+        return DefaultCell_Height;
 }
 
 @end
