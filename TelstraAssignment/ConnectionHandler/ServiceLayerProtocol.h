@@ -7,6 +7,7 @@
 //
 #import <Foundation/Foundation.h>
 
+//Service layer Protocol: Each service call will confirm to a set list of protocol methods which are mandatory for handling network call output
 @protocol ServiceLayerProtocol <NSObject>
 
 - (void)fetch:(NSDictionary*)aRequestDictionary;

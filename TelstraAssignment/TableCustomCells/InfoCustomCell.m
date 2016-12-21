@@ -12,11 +12,6 @@
 
 NSOperationQueue *queue;
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
@@ -28,9 +23,7 @@ NSOperationQueue *queue;
     if (self) {
         // Initialization code
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
-        
-        //[self.contentView setBackgroundColor:[UIColor lightGrayColor]];
-        
+                
         self.title = [UILabel new];
         [self.title setNumberOfLines:0];
         [self.title setTextColor:[UIColor blackColor]];

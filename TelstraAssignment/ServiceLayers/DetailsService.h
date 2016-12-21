@@ -10,6 +10,7 @@
 #import "ServiceLayerProtocol.h"
 #import "TableInfo.h"
 
+//DetailServiceProtocol: Each View Controller that calls the service call will handle the response or Error depending on the service class output.
 @protocol DetailServiceProtocol <NSObject>
 
 - (void)detailResultHandler:(NSArray *)detailInfo :(NSString *)titleHeader;

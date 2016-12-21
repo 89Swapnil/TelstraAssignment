@@ -38,8 +38,11 @@
     for(NSDictionary *tempDict in dataArray)
     {
         TableInfo *infoData = [[TableInfo alloc]init];
-        [infoData setData:tempDict];
-        [detailDataArray addObject:infoData];
+        if(!(([tempDict objectForKey:@"title"] == [NSNull null]) && ([tempDict objectForKey:@"description"] == [NSNull null]) && ([tempDict objectForKey:@"imageHref"] == [NSNull null])))
+        {
+            [infoData setData:tempDict];
+            [detailDataArray addObject:infoData];
+        }
     }
     return detailDataArray;
 }

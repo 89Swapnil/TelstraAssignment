@@ -13,9 +13,9 @@
 #define DefaultCell_Height 90
 #define CellPadding 50
 #define MaxHeight 40
-#define TitleFont [UIFont fontWithName:@"Georgia-Bold" size:14]
+#define TitleFont [UIFont fontWithName:@"Georgia" size:14]
 
-#define DescriptionFont [UIFont fontWithName:@"Georgia-Bold" size:12]
+#define DescriptionFont [UIFont fontWithName:@"Georgia" size:12]
 
 
 #endif /* Constant_h */

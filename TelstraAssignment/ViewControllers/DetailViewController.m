@@ -9,7 +9,9 @@
 #import "DetailViewController.h"
 
 @interface DetailViewController ()
-
+{
+    UINavigationBar *navbar;
+}
 @property(nonatomic, strong)NSArray *detailArray;
 @property(nonatomic, strong)NSString *titleHeader;
 
@@ -64,18 +66,22 @@
 
 -(void)setUI
 {
-    UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, NavigationBar_Height)];
+    navbar = [[UINavigationBar alloc]init];
     UINavigationItem *navItem = [UINavigationItem alloc];
     navItem.title = _titleHeader;
     [navbar pushNavigationItem:navItem animated:false];
+    navbar.translatesAutoresizingMaskIntoConstraints = NO;
+
     [self.view addSubview:navbar];
     
-    infoTable = [[UITableView alloc] initWithFrame:CGRectMake(0, NavigationBar_Height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - NavigationBar_Height)];
+    infoTable = [[UITableView alloc] init];
     infoTable.delegate =self;
     infoTable.dataSource = self;
     [infoTable setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-    
+    infoTable.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview:infoTable];
+
+    [self updateConstraints];
     
     UIView *refreshView = [[UIView alloc] initWithFrame:CGRectMake(0, NavigationBar_Height, 0, 0)];
     [infoTable insertSubview:refreshView atIndex:0];
@@ -88,6 +94,31 @@
     refreshControl.attributedTitle = refreshString;
     [refreshView addSubview:refreshControl];
 
+}
+
+-(void)updateConstraints
+{
+    NSDictionary *viewsDictionary = @{@"infoTable":infoTable, @"navbar":navbar};
+    
+    NSArray *constraints;
+    
+    constraints= [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[navbar]-[infoTable]|"
+                                                         options: 0
+                                                         metrics:nil
+                                                           views:viewsDictionary];
+    [self.view addConstraints:constraints];
+    
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[infoTable]|"
+                                                          options: 0
+                                                          metrics:nil
+                                                            views:viewsDictionary];
+    [self.view addConstraints:constraints];
+    
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[navbar]|"
+                                                          options: 0
+                                                          metrics:nil
+                                                            views:viewsDictionary];
+    [self.view addConstraints:constraints];
 }
 
 -(void)reloadData
@@ -128,12 +159,28 @@
         cell = [[InfoCustomCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    UIView* separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 2)];
+    UIView* separatorLineView = [[UIView alloc] init];
     separatorLineView.backgroundColor = [UIColor grayColor];
+    separatorLineView.translatesAutoresizingMaskIntoConstraints = NO;
     [cell.contentView addSubview:separatorLineView];
     
-    TableInfo *dataObject = [_detailArray objectAtIndex:indexPath.row];
+    NSDictionary *viewsDictionary = @{@"separatorLineView":separatorLineView};
     
+    NSArray *constraints;
+    
+    constraints= [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[separatorLineView(2)]|"
+                                                         options: 0
+                                                         metrics:nil
+                                                           views:viewsDictionary];
+    [cell.contentView addConstraints:constraints];
+    
+    constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[separatorLineView]|"
+                                                          options: 0
+                                                          metrics:nil
+                                                            views:viewsDictionary];
+    [cell.contentView addConstraints:constraints];
+
+    TableInfo *dataObject = [_detailArray objectAtIndex:indexPath.row];
     NSString *urlString = [[NSString alloc]initWithFormat:@"%@",dataObject.imgUrl];
     NSString *title = [[NSString alloc]initWithFormat:@"%@",dataObject.title];
     NSString *description = [[NSString alloc]initWithFormat:@"%@",dataObject.descriptionDetail];
